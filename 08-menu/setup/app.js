@@ -72,3 +72,58 @@ const menu = [
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
 ];
+
+// get element with dom 
+const sectionCenter = document.querySelector('.section-center')
+
+// get btn container 
+const btnContainer = document.querySelector('.btn-container')
+
+
+// loop on menu items 
+window.addEventListener('DOMContentLoaded', function(){
+  displayMenuItems(menu)
+})
+
+// filter buttons 
+const filterBtns = btnContainer.querySelectorAll('.filter-btn')
+filterBtns.forEach(btn =>{
+  btn.addEventListener('click', function(e){
+    const category = e.currentTarget.dataset.id
+    const currentCategory = menu.filter(menuItem => {
+      if(category === menuItem.category){
+        return menuItem
+      }
+    })
+    if(category === 'all'){displayMenuItems(menu)}
+      else{displayMenuItems(currentCategory)}
+  })
+})
+
+
+// display items defally 
+function displayMenuItems (item){
+  let menuItem = item.map(item => {
+    return `
+    <article class="menu-item">
+          <img src=${item.img} alt=${item.title} class="photo" />
+          <div class="item-info">
+            <header>
+              <h4>${item.title}</h4>
+              <h4 class="price">$${item.price}</h4>
+            </header>
+            <p class="item-text">
+            ${item.desc}
+            </p>
+          </div>
+        </article>
+    `
+  })
+  menuItem = menuItem.join('')
+  sectionCenter.innerHTML = menuItem;
+}
+
+
+
+
+// we are in 2:53 min in video 
