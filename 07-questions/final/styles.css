@@ -241,9 +241,9 @@ Questions
 .minus-icon {
   display: none;
 }
-.show-text .minus-icon {
+/* .show-text .minus-icon {
   display: inline;
-}
+} */
 .show-text .plus-icon {
   display: none;
 }
