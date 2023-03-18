@@ -71,6 +71,14 @@ const menu = [
     img: "./images/item-9.jpeg",
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
+  {
+    id: 10,
+    title: "quarantine buddy",
+    category: "dinner",
+    price: 40.99,
+    img: "./images/item-10.jpeg",
+    desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+  },
 ];
 
 // get element with dom 
@@ -83,21 +91,8 @@ const btnContainer = document.querySelector('.btn-container')
 // loop on menu items 
 window.addEventListener('DOMContentLoaded', function(){
   displayMenuItems(menu)
-})
-
-// filter buttons 
-const filterBtns = btnContainer.querySelectorAll('.filter-btn')
-filterBtns.forEach(btn =>{
-  btn.addEventListener('click', function(e){
-    const category = e.currentTarget.dataset.id
-    const currentCategory = menu.filter(menuItem => {
-      if(category === menuItem.category){
-        return menuItem
-      }
-    })
-    if(category === 'all'){displayMenuItems(menu)}
-      else{displayMenuItems(currentCategory)}
-  })
+  displayMenuButtons()
+  
 })
 
 
@@ -124,6 +119,40 @@ function displayMenuItems (item){
 }
 
 
+// display menu buttons 
+function displayMenuButtons(){
+  const categories = menu.reduce(function(values, item){
+    if(!values.includes(item.category)){
+      values.push(item.category)
+    }
+    return values
+  },['all'])
+  
+  // make unique category btn 
+  const categoryBtn = categories.map(category =>{
+    return `
+    <button type="button" class="filter-btn" data-id="${category}">
+          ${category}
+        </button>
+    `
+  }).join('')
+  btnContainer.innerHTML = categoryBtn
+
+  // filter buttons 
+const filterBtns = btnContainer.querySelectorAll('.filter-btn')
+filterBtns.forEach(btn =>{
+  btn.addEventListener('click', function(e){
+    const category = e.currentTarget.dataset.id
+    const currentCategory = menu.filter(menuItem => {
+      if(category === menuItem.category){
+        return menuItem
+      }
+    })
+    if(category === 'all'){displayMenuItems(menu)}
+      else{displayMenuItems(currentCategory)}
+  })
+})
+}
 
 
 // we are in 2:53 min in video 
